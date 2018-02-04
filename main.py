@@ -17,6 +17,7 @@ import random
 
 import math
 
+Window.size = (650, 950)
 
 egg_types = ['Egg.png', 'Egg2.png', 'Egg3.png', 'Egg4.png', 'Egg5.png']
 
@@ -43,11 +44,7 @@ class Chicken(Widget):
 class Egg(Widget):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
-            if(abs(self.dx - touch.pos[0]) < 50 and
-               Window.height - 100 - abs(self.pos[1]) - touch.pos[1] < 50):
-                self.parent.remove_widget(self)
-                global egg_count
-                egg_count+= 1
+            pass
 
     def get_egg(self):
  
@@ -59,24 +56,18 @@ class Egg(Widget):
         return self.dx
     
     def update(self):
-##    	global game_over
-##    	if not game_over:
-##	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
-##	    if self.pos[1] < -(Window.height) + 100:
-##	            global lives
-##		    lives -= 1
-##		    self.parent.remove_widget(self)
-	self.pos[1] -= 5*(1 + egg_count*speed_ratio)
-	if self.pos[1] < -(Window.height) + 100:
-		self.parent.remove_widget(self)
+    	global game_over
+    	if not game_over:
+	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
+	    if self.pos[1] < -(Window.height) + 100:
+	            global lives
+		    lives -= 1
+		    self.parent.remove_widget(self)
 
 class ScoreLabel(Label):
     pass
 
 class LifeLabel(Label):
-    pass
-
-class EndScreen(Screen):
     pass
 
 class ChickenGame(RelativeLayout):
