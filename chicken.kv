@@ -10,16 +10,17 @@
 	font_size: 100
 	color: (1,0,0,1)
     
-<Chicken>:
-    Image:
-        source: 'chicken.png'
-        center_x: root.width/2
-        top: root.top
-        size: 200, 200
+#<Chicken>:
+#    Image:
+#        source: 'monkaS.jpg'
+#        center_x: root.width/2
+#        top: root.top
+#        size: 200, 200
 
 <Egg>:
     Image:
-        source: root.get_egg()
+#        source: root.get_egg()
+        source: 'teardrop.png'
         center_x: root.get_rand_x()
         top: root.top - 50
         size: 100, 100
@@ -34,7 +35,7 @@
     	Rectangle:
     		pos: self.pos
     		size: self.size
-    		source: 'grass_eggs.jpg'
+    		source: 'monkaS.jpg'
 
     RelativeLayout:
         size: root.size

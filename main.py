@@ -59,13 +59,16 @@ class Egg(Widget):
         return self.dx
     
     def update(self):
-    	global game_over
-    	if not game_over:
-	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
-	    if self.pos[1] < -(Window.height) + 100:
-	            global lives
-		    lives -= 1
-		    self.parent.remove_widget(self)
+##    	global game_over
+##    	if not game_over:
+##	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
+##	    if self.pos[1] < -(Window.height) + 100:
+##	            global lives
+##		    lives -= 1
+##		    self.parent.remove_widget(self)
+	self.pos[1] -= 5*(1 + egg_count*speed_ratio)
+	if self.pos[1] < -(Window.height) + 100:
+		self.parent.remove_widget(self)
 
 class ScoreLabel(Label):
     pass
