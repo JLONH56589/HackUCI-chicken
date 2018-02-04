@@ -24,6 +24,8 @@ egg_count = 0
 
 lives = 3
 
+speed_ratio = 0.1
+
 game_over = False
 
 ## sound is a work in progress because it doesn't work I think lmao
@@ -46,7 +48,6 @@ class Egg(Widget):
                 self.parent.remove_widget(self)
                 global egg_count
                 egg_count+= 1
-            print(Window.height, self.pos[1], touch.pos[1])
 
     def get_egg(self):
  
@@ -60,11 +61,11 @@ class Egg(Widget):
     def update(self):
     	global game_over
     	if not game_over:
-	        self.pos[1] -= 5
-	        if self.pos[1] < -(Window.height) + 100:
-	        	global lives
-		        lives -= 1
-		        self.parent.remove_widget(self)
+	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
+	    if self.pos[1] < -(Window.height) + 100:
+	            global lives
+		    lives -= 1
+		    self.parent.remove_widget(self)
 
 class ScoreLabel(Label):
     pass
