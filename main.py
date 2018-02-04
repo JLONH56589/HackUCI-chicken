@@ -1,21 +1,12 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
-from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.image import Image
-from kivy.graphics import *
-from kivy.clock import *
+from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.core.window import Window
-from kivy.animation import Animation
-from kivy.uix.screenmanager import Screen
-from kivy.uix.button import Button
 import random
-
 import math
 
 Window.size = (530, 700)
@@ -39,8 +30,6 @@ sound = SoundLoader.load('clucky.mp3')
 class Chicken(Widget):
     def on_touch_down(self, touch):
         if (not game_over) and self.collide_point(*touch.pos):
-##            pass
-##            print("Chicken has been clicked")
             #make the chicken play a sound
             if sound:
                 sound.play()
