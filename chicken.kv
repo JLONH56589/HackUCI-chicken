@@ -1,13 +1,48 @@
 #:kivy 1.0.9
 #:import kivy kivy
 #:import win kivy.core.window
+#:import ran random
 
-<ChickenGame>
+<ScoreLabel>:
+    font_size: 100
+
+<LifeLabel>:
+	font_size: 100
+	color: (1,0,0,1)
+    
+<Chicken>:
     Image:
         source: 'chicken.png'
-        keep_ratio: False
-        allow_stretch: True
-        opacity: 0.8
-        size_hint: 0.3, 0.4
-        pos_hint: {'center_x': 0.5, 'center_y': 0.75}
- 
+        center_x: root.width/2
+        top: root.top
+        size: 200, 200
+
+<Egg>:
+    Image:
+        source: root.get_egg()
+        center_x: root.get_rand_x()
+        top: root.top - 50
+        size: 100, 100
+
+<ChickenGame>:
+    chicken: main_chicken
+    egg: rand_egg
+    score_label: score_label
+    life_label: life_label
+
+    RelativeLayout:
+        size: root.size
+
+    Chicken:
+        id: main_chicken
+
+    Egg:
+        id: rand_egg
+
+    ScoreLabel:
+        id: score_label
+        pos: 200, 200
+
+    LifeLabel:
+    	id: life_label
+    	pos: -200, 200
