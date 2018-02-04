@@ -13,6 +13,7 @@ from kivy.properties import ObjectProperty, NumericProperty
 from kivy.core.window import Window
 from kivy.animation import Animation
 from kivy.uix.screenmanager import Screen
+from kivy.uix.button import Button
 import random
 
 import math
@@ -30,11 +31,14 @@ speed_ratio = 0.1
 
 game_over = False
 
+update_clock = None
+
+
 ## sound is a work in progress because it doesn't work I think lmao
 sound = SoundLoader.load('clucky.mp3')
 class Chicken(Widget):
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if (not game_over) and self.collide_point(*touch.pos):
 ##            pass
 ##            print("Chicken has been clicked")
             #make the chicken play a sound
@@ -44,7 +48,7 @@ class Chicken(Widget):
 
 class Egg(Widget):
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if (not game_over) and self.collide_point(*touch.pos):
             if(abs(self.dx - touch.pos[0]) < 50 and
                Window.height - 100 - abs(self.pos[1]) - touch.pos[1] < 50):
                 self.parent.remove_widget(self)
@@ -74,14 +78,10 @@ class ScoreLabel(Label):
  
 class LifeLabel(Label):
     pass
- 
-class EndScreen(Screen):
-    pass
 
 class ChickenGame(RelativeLayout):
     chicken = ObjectProperty(None)
     egg = ObjectProperty(None)
- 
  
     def update(self, dt):
       global game_over
@@ -90,6 +90,7 @@ class ChickenGame(RelativeLayout):
       self.ids.score_label.text = str(egg_count)
       if lives <= 0:
         game_over = True
+        update_clock.cancel()
       if not game_over:
           for child in App.get_running_app().root.children[:]:
               try:
@@ -101,8 +102,10 @@ class ChickenGame(RelativeLayout):
     
 class ChickenApp(App):
     def build(self):
+        global game
         game = ChickenGame()
-        Clock.schedule_interval(game.update, 0.03)
+        global update_clock
+        update_clock = Clock.schedule_interval(game.update, 0.03)
         return game
  
 if __name__ == '__main__':
