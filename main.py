@@ -70,7 +70,7 @@ class ScoreLabel(Label):
     pass
 
 class LifeLabel(Label):
-	pass
+    pass
 
 class EndScreen(Screen):
     pass

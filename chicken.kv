@@ -30,6 +30,12 @@
     score_label: score_label
     life_label: life_label
 
+    canvas.before:
+    	Rectangle:
+    		pos: self.pos
+    		size: self.size
+    		source: 'grass_eggs.jpg'
+
     RelativeLayout:
         size: root.size
 
