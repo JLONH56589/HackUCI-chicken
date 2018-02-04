@@ -4,7 +4,7 @@
 #:import ran random
 
 <ScoreLabel>:
-    font_size: 100
+    font_size: 50
 
 <LifeLabel>:
 	font_size: 100
@@ -15,7 +15,7 @@
         source: 'chicken.png'
         center_x: root.width/2
         top: root.top
-        size: 200, 200
+        size: 180, 180
 
 <Egg>:
     Image:
@@ -32,9 +32,9 @@
 
     canvas.before:
     	Rectangle:
-    		pos: self.pos
-    		size: self.size
-    		source: 'grass_eggs.jpg'
+    	    pos: self.pos
+    	    size: self.size
+    	    source: 'green.png'
 
     RelativeLayout:
         size: root.size
@@ -47,7 +47,7 @@
 
     ScoreLabel:
         id: score_label
-        pos: root.width/2 - 50, root.height/2 - 50
+        pos: root.width/2 - 80, root.height/2 - 82
 
     LifeLabel:
     	id: life_label

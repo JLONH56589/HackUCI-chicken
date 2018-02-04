@@ -17,6 +17,8 @@ import random
 
 import math
 
+Window.size = (530, 700)
+
 
 egg_types = ['Egg.png', 'Egg2.png', 'Egg3.png', 'Egg4.png', 'Egg5.png']
 
@@ -29,15 +31,15 @@ speed_ratio = 0.1
 game_over = False
 
 ## sound is a work in progress because it doesn't work I think lmao
-##sound = SoundLoader.load('clucky.mp3')
+sound = SoundLoader.load('clucky.mp3')
 class Chicken(Widget):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
-            pass
+##            pass
 ##            print("Chicken has been clicked")
             #make the chicken play a sound
-##            if sound:
-##                sound.play()
+            if sound:
+                sound.play()
 
 
 class Egg(Widget):
@@ -59,50 +61,49 @@ class Egg(Widget):
         return self.dx
     
     def update(self):
-    	global game_over
-    	if not game_over:
-	    self.pos[1] -= 5*(1 + egg_count*speed_ratio)
-	    if self.pos[1] < -(Window.height) + 100:
-	            global lives
-		    lives -= 1
-		    self.parent.remove_widget(self)
-
+        global game_over
+        if not game_over:
+            self.pos[1] -= 5*(1 + egg_count*speed_ratio)
+        if self.pos[1] < -(Window.height) + 100:
+            global lives
+            lives -= 1
+            self.parent.remove_widget(self)
+ 
 class ScoreLabel(Label):
     pass
-
+ 
 class LifeLabel(Label):
     pass
-
+ 
 class EndScreen(Screen):
     pass
 
 class ChickenGame(RelativeLayout):
     chicken = ObjectProperty(None)
     egg = ObjectProperty(None)
-
-
+ 
+ 
     def update(self, dt):
-    	global game_over
-    	global lives
-    	self.ids.life_label.text = str(lives)
-    	self.ids.score_label.text = str(egg_count)
-    	if lives <= 0:
-    		game_over = True
-    	if not game_over:
-	        for child in App.get_running_app().root.children[:]:
-	            try:
-	                child.update()
-	            except:
-	                pass
-	        if random.randint(0,20) == 3:
-	            App.get_running_app().root.add_widget(Egg())
+      global game_over
+      global lives
+      self.ids.life_label.text = str(lives)
+      self.ids.score_label.text = str(egg_count)
+      if lives <= 0:
+        game_over = True
+      if not game_over:
+          for child in App.get_running_app().root.children[:]:
+              try:
+                  child.update()
+              except:
+                  pass
+          if random.randint(0,20) == 3:
+              App.get_running_app().root.add_widget(Egg())
     
 class ChickenApp(App):
     def build(self):
         game = ChickenGame()
         Clock.schedule_interval(game.update, 0.03)
         return game
-
-
+ 
 if __name__ == '__main__':
     ChickenApp().run()
